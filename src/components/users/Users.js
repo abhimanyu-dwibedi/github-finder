@@ -1,26 +1,26 @@
-import React from 'react'
-import Useritem from './Useritem'
-import { Spinner } from '../layout/Spinner'
- const Users=({users,loading})=>  {
-     if(loading){
-      return<Spinner />
-     }else{
-        
-        return (
-            <div style={userstyle}>
-                {users.map(user=>(
-                  <Useritem key={user.id} user={user}/>  
-                    
-                ))}
-            </div>
-        )
-    }}
-    
+import React, { useContext } from "react";
+import Useritem from "./Useritem";
+import { Spinner } from "../layout/Spinner";
+import githubcontext from "../../context/github/githubContext";
+const Users = () => {
+  const githubContext = useContext(githubcontext);
 
-const userstyle={
-    display:'grid',
-    gridTemplateColumns:'repeat(3,1fr)',
-    gridGap:'1rem'
+  if (githubContext.loading) {
+    return <Spinner />;
+  } else {
+    return (
+      <div style={userstyle}>
+        {githubContext.Users.map((user) => (
+          <Useritem key={user.id} user={user} />
+        ))}
+      </div>
+    );
+  }
+};
 
-}
-export default Users
+const userstyle = {
+  display: "grid",
+  gridTemplateColumns: "repeat(3,1fr)",
+  gridGap: "1rem",
+};
+export default Users;
